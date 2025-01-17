@@ -1,11 +1,17 @@
 import axios from "axios";
 import { useState } from "react";
+import {  useNavigate } from "react-router-dom";
+import { addUser } from "./utills/userSlice";
+import { useDispatch } from "react-redux";
+
 
 const Login = () => {
 
-    const [emailId,setEmailId] = useState("");
-    const [password, setPassword] = useState("");
-
+    const [emailId,setEmailId] = useState("golu@gmail.com");
+    const [password, setPassword] = useState("Shane@123");
+    const[loginUser, setLoginUser] = useState({});
+    const Navigate = useNavigate();
+    const dispatch = useDispatch();
     const loginHandler = async () =>{
         try{
           const res = await  axios.post("http://localhost:3000/login",{
@@ -13,11 +19,22 @@ const Login = () => {
             password,
         },
         {withCredentials:true}
-    )}
+    )
+        
+        setLoginUser(res.data.data);
+        
+        dispatch(addUser(res.data.data));
+        alert("Login Succesfully");
+        Navigate("/profile");
+        // console.log(res);
+        }
         catch(err){
             console.error(err);
         }
     }
+    
+    
+    console.log(loginUser);
   return (
     <div className="flex justify-center  my-10">
       <div className="card bg-base-300 text-neutral-content w-96 hover:shadow-md">
