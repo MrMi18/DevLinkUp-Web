@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import {  useNavigate } from "react-router-dom";
+import {  useNavigate,Link } from "react-router-dom";
 import { addUser } from "./utills/userSlice";
 import { useDispatch } from "react-redux";
 import { BASE_URL } from "./utills/constent";
@@ -8,8 +8,8 @@ import { BASE_URL } from "./utills/constent";
 
 const Login = () => {
 
-    const [emailId,setEmailId] = useState("golu@gmail.com");
-    const [password, setPassword] = useState("Shane@123");
+    const [emailId,setEmailId] = useState("");
+    const [password, setPassword] = useState("");
     const[loginUser, setLoginUser] = useState({});
     const[authFailed,setAuthFailed] = useState("");
     const navigate = useNavigate();
@@ -98,7 +98,9 @@ const Login = () => {
           <div className="card-actions justify-end m-2">
             <button className="btn btn-primary" onClick={loginHandler}>Login</button>
           </div>
+          <p className="text-sm">Don't you have an account?<Link to="/Signup" className="text-base text-blue-600 pl-1">  Sign up</Link></p>
         </div>
+        
       </div>
     </div>
   );
