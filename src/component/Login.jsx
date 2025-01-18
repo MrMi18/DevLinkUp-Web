@@ -1,8 +1,9 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {  useNavigate } from "react-router-dom";
 import { addUser } from "./utills/userSlice";
 import { useDispatch } from "react-redux";
+import { BASE_URL } from "./utills/constent";
 
 
 const Login = () => {
@@ -10,11 +11,32 @@ const Login = () => {
     const [emailId,setEmailId] = useState("golu@gmail.com");
     const [password, setPassword] = useState("Shane@123");
     const[loginUser, setLoginUser] = useState({});
-    const Navigate = useNavigate();
+    const[authFailed,setAuthFailed] = useState("");
+    const navigate = useNavigate();
     const dispatch = useDispatch();
+
+
+    const checkingUser = async() =>{
+      try{
+        const user = await axios.get(BASE_URL+"/profile/view", {withCredentials:true} );
+        if(user){
+          console.log("hey we found the user");
+          // dispatch(addUser(user.data));
+          console.log(user);
+          return navigate("/profile");
+        }
+      }catch(err){
+        console.error(err);
+        return ;
+      }}
+      useEffect(() =>{
+        checkingUser();
+      },[])
+    
+    
     const loginHandler = async () =>{
         try{
-          const res = await  axios.post("http://localhost:3000/login",{
+          const res = await  axios.post(BASE_URL+"/login",{
             emailId,
             password,
         },
@@ -25,14 +47,15 @@ const Login = () => {
         
         dispatch(addUser(res.data.data));
         alert("Login Succesfully");
-        Navigate("/profile");
-        // console.log(res);
+        navigate("/profile");  //need to raplace with feed page when feed page will be ready.
+        
         }
         catch(err){
             console.error(err);
+            setAuthFailed(err.response.data );
         }
     }
-    
+
     
     console.log(loginUser);
   return (
@@ -71,7 +94,7 @@ const Login = () => {
             />
             
           </label>
-
+          <p className="text-red-600 text-sm ">{authFailed}</p>
           <div className="card-actions justify-end m-2">
             <button className="btn btn-primary" onClick={loginHandler}>Login</button>
           </div>

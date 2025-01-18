@@ -12,13 +12,19 @@ const Body = () => {
   const navigate = useNavigate();
   const userData = useSelector((store )=>store.user);
   const fetchUser = async() =>{
-    if(userData)return;
+    if(userData){
+      // console.log("we found the user");
+      return;
+    };
     try{
-      const user = await axios.get(BASE_URL+"profile/view",{withCredentials:true} );
-      dispatch(addUser(user.data));
-      console.log(user.data);
+      // console.log("fetching the data ");
+      const user = await axios.get(BASE_URL+"/profile/view", {withCredentials:true} );
+      // console.log(user);
+      return dispatch(addUser(user.data));
+      
     }
     catch(err){
+      console.log("we got an error ");
       if(err.status===401){
         navigate("/login");
       }
