@@ -1,7 +1,7 @@
 import axios from "axios";
 import {  useState } from "react";
 import { BASE_URL } from "./utills/constent";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addUser } from "./utills/userSlice";
 
@@ -143,6 +143,8 @@ const signupHander= async () =>{
           <div className="card-actions justify-end m-2">
             <button className="btn btn-primary" onClick={signupHander} >Signup</button>
           </div>
+        <p className="text-sm">Already have an account?<Link to="/login" className="text-base text-blue-600 pl-1">  Login</Link></p>
+
         </div>
       </div>
     </div>

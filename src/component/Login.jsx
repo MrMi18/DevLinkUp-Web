@@ -8,8 +8,8 @@ import { BASE_URL } from "./utills/constent";
 
 const Login = () => {
 
-    const [emailId,setEmailId] = useState("");
-    const [password, setPassword] = useState("");
+    const [emailId,setEmailId] = useState("imran.mohd1910@gmail.com");
+    const [password, setPassword] = useState("Shane@123");
     const[loginUser, setLoginUser] = useState({});
     const[authFailed,setAuthFailed] = useState("");
     const navigate = useNavigate();
@@ -57,7 +57,7 @@ const Login = () => {
     }
 
     
-    console.log(loginUser);
+    
   return (
     <div className="flex justify-center  my-10">
       <div className="card bg-base-300 text-neutral-content w-96 hover:shadow-md">
@@ -98,8 +98,8 @@ const Login = () => {
           <div className="card-actions justify-end m-2">
             <button className="btn btn-primary" onClick={loginHandler}>Login</button>
           </div>
-          <p className="text-sm">Don't you have an account?<Link to="/Signup" className="text-base text-blue-600 pl-1">  Sign up</Link></p>
-        </div>
+          <p className="text-sm">{"Don't"} you have an account?<Link to="/Signup" className="text-base text-blue-600 pl-1">  Sign up</Link></p>
+        </div>  
         
       </div>
     </div>

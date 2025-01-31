@@ -24,9 +24,9 @@ const Body = () => {
       
     }
     catch(err){
-      console.log("we got an error ");
+      
       if(err.status===401){
-        navigate("/login");
+       return  navigate("/login");
       }
       
     }
