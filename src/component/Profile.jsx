@@ -1,26 +1,24 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import EditProfile from "./EditProfile";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Profile = () => {
   const [profileData, setProfileData] = useState(null);
-
-  const getProfile = async () => {
-    try {
-      const res = await axios.get("http://localhost:3000/profile/view", {
-        withCredentials: true,
-      });
-      setProfileData(res.data);
-      console.log(res);
-    } catch (err) {
-      console.error(err.meesage);
-    }
-  };
+  const navigate = useNavigate();
+  const userData = useSelector((store )=>store.user);
+  
   useEffect(() => {
-    getProfile();
-  }, []);
+    setProfileData(userData);
+  }, [userData]);
+
+  const editProfileHandler = () => navigate("/profile/edit/"+profileData._id);
+  
 
   return (
     <div>
+      {/* <EditProfile profileData ={profileData} /> */}
       <div className="flex justify-center  my-10">
         <div className="card bg-base-300 text-neutral-content w-96  hover:shadow-md">
           <div className="avatar mx-auto mt-10">
@@ -105,7 +103,7 @@ const Profile = () => {
 
             <p className="text-red-600 text-sm "> </p>
             <div className="card-actions justify-end mx-auto">
-              <button className="btn btn-primary text-lg">Edit</button>
+              <button onClick={editProfileHandler } className="btn btn-primary text-lg">Edit</button>
             </div>
           </div>
         </div>

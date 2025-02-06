@@ -31,7 +31,7 @@ const Feed = () => {
     <div>
         {
             feedData && feedData.map(data =>{
-                return <Cards key ={data?._id} data = {data}/>
+                return <Cards key ={data?._id} data = {data?.data}/>
             })
         }   
       
