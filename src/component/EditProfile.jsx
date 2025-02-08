@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { BASE_URL } from "./utills/constent";
@@ -10,18 +10,28 @@ const EditProfile = () => {
     const userData = useSelector((store )=>store.user);
     const navigate = useNavigate();
     const {userId} = useParams();
-    console.log(userId);
-    
-     const[firstName, setFirstName] = useState(userData?.firstName||"");
-     const[lastName, setLastName] = useState(userData?.lastName||"")
-     const[age, setAge] = useState(userData?.Age||"Not Specified");
-     const[gender, setGender] = useState(userData?.gender||"Not Specified");
-     const[deignation, setDesignation] = useState(userData?.deignation||"");
+    const[firstName, setFirstName] = useState(userData?.firstName||"");
+    const[lastName, setLastName] = useState(userData?.lastName||"")
+    const[age, setAge] = useState(userData?.Age||"Not Specified");
+    const[gender, setGender] = useState(userData?.gender||"Not Specified");
+    const[deignation, setDesignation] = useState(userData?.deignation||"");
+    const [skills, setSkills] = useState(userData?.skill ? userData.skill : []);
+    const [addingSkill, setAddingSkill] = useState("");
+    console.log(skills);
+   
+     const  addSkilHandler = () =>{
+       if(addingSkill.trim().length>0){
+        setSkills((prevSkills) => [...prevSkills, addingSkill]);
+        setAddingSkill("")
+       }
+     }
+     const removeSkillHandler = (i) =>{
+      setSkills((prevSkills) => prevSkills.filter((_, index) => index !== i));
      
+     }
+    
      const submitHandler = async() =>{
-        
-        try{
-            
+        try{ 
             await axios.patch(BASE_URL+"/profile/edit/"+userId,{
                 firstName,
                 lastName,
@@ -36,12 +46,10 @@ const EditProfile = () => {
         }catch(err){
             console.error(err.message);
         }
-        
-
      }
     
   return (
-    <div className="flex justify-center items-start gap-3 mt-10">
+    <div className="flex justify-center items-start gap-3 mt-10 ">
     <div>
       <div className="flex justify-center  ">
         <div className="card bg-base-300 text-neutral-content w-96  hover:shadow-md">
@@ -111,7 +119,6 @@ const EditProfile = () => {
                 <span className="label-text">Gender</span>
               </div>
               <input
-           
                 type="text"
                 placeholder=""
                 value={gender}
@@ -119,9 +126,7 @@ const EditProfile = () => {
                 onChange={(e) => setGender(e.target.value)}
                 className="input input-bordered w-full max-w-xs"
               />
-              
             </label>
-
 
             <label className="form-control w-full max-w-xs p-1">
               <div className="label">
@@ -132,17 +137,32 @@ const EditProfile = () => {
                 type="text"
                 placeholder= {userData?.emailID}
                 value=""
-                // {profileData?.emailID}
-               
                 className="input input-bordered w-full max-w-xs"
               />
             </label>
-            <div  className="flex  flex-wrap">
+          <button className="mt-6 text-lg font-semibold">Skills</button>
+          <div className="flex gap-4 items-center w-[100%]">
+            <label className="form-control w-full max-w-xs p-1">
+              <input
+              onChange={(e) => setAddingSkill(e.target.value)}
+                type="text"
+                placeholder= "Enter Your Skill"
+                value={addingSkill}
+                className="input input-bordered w-full max-w-xs"
+              />
+            </label>
+              <button onClick={addSkilHandler}  className="btn bg-base-100" >Add</button>
+            </div>
+            <div  className="flex  flex-wrap gap-3">
             {
-            userData?.skill &&
-            userData?.skill.map((skill,index) =>{
+            skills.length>0 &&
+            skills.map((skill,index) =>{
               
-                 return(  <span key={index} className="btn" >  {skill} </span>)
+                 return(  <span key={index} className="btn" >  {skill} <button className="btn btn-circle">
+                  <svg onClick={() => removeSkillHandler(index) } xmlns="http://www.w3.org/2000/svg"className="h-4 w-4"
+                    fill="none" viewBox="0 0 20 20" stroke="currentColor"> <path   strokeLinecap="round"   strokeLinejoin="round"   strokeWidth="2"   d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button></span>)
               })
             }
             </div>
@@ -156,8 +176,10 @@ const EditProfile = () => {
           </div>
         </div>
       </div>
+    </div> 
+    <div className="">
+        <Cards firstName ={firstName} lastName={lastName} Age = {age} deignation= {deignation} gender={gender}  skill={skills}/>
     </div>
-    <Cards  firstName ={firstName} lastName={lastName} Age = {age} deignation= {deignation} />
     </div>
   )
 }

@@ -1,6 +1,7 @@
 const Cards = (data) => {
     
-  const { firstName, lastName, deignation,Age, } = data;
+  const { firstName, lastName, deignation,Age,skill,gender } = data;
+  
   return (
     <div className="flex justify-center items-center">
       <div className="card card-compact bg-base-300 w-96 shadow-xl mt-2">
@@ -14,7 +15,19 @@ const Cards = (data) => {
         <div className="card-body">
           <h2 className="card-title">{firstName + " " + lastName}</h2>
           <p>{deignation}</p>
-          <p>{Age}</p>
+          <div className="flex w-[20%]">
+            <p>{gender}</p>
+            <p>{Age}</p>
+          </div>
+          
+          <div  className="flex  flex-wrap">
+            {
+            skill &&
+            skill.map((skill,index) =>{
+              
+                 return(  <button key={index} className="btn" >  {skill} </button>)
+              })
+            }</div>
           <div className="card-actions justify-end">
             <div className="flex mx-auto gap-3 ">
               <button className="btn btn-accent">Interest</button>
