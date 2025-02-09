@@ -5,12 +5,27 @@ import { BASE_URL } from "./utills/constent";
 
 const Request = () => {
 
-    const [requestList, setRequestList] = useState(null);
+    const [requestList, setRequestList] = useState([]);
+
+
+    const requestUpdate = async(status,id)=>{
+          try{
+              await axios.post(BASE_URL+"/request/review/"+status+"/"+id,{},{withCredentials:true});
+              setRequestList(requestList.filter(e => e._id!=id));
+          }catch(err){
+            console.error(err.meeage);
+          }
+    }
 
 
     const fetchRequest = async() =>{
+      try{
         const requests = await axios.get(BASE_URL+"/user/requests/list",{withCredentials:true});   
-        setRequestList(requests.data);    
+        setRequestList(requests.data);  
+      }catch(err){
+        console.error(err.message );
+      }
+          
     }
     useEffect(() =>{
         fetchRequest();
@@ -41,8 +56,8 @@ const Request = () => {
           </div>
           </div>
           <div className="flex gap-2 items-center">
-            <button className="btn  btn-success">Accept</button>
-            <button className="btn btn-error">Reject</button>
+            <button className="btn  btn-outline btn-success" onClick={()=>requestUpdate("Accepted",request._id)}>Accept</button>
+            <button className="btn  btn-outline btn-error" onClick={()=>requestUpdate("Rejected",request._id)}>Reject</button>
           </div>
         </div>   
       )
