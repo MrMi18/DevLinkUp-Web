@@ -38,7 +38,7 @@ const Navbar = () => {
         <div className="w-10 rounded-full">
           <img
             alt="Tailwind CSS Navbar component"
-            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtH0U8GjYmI9TR8KiU8_8oebMzeY_2ufvB8A&s"  />
         </div>
       </div>
       <ul
@@ -50,7 +50,9 @@ const Navbar = () => {
             <span className="badge">New</span>
           </Link>
         </li>
-        <Link to="/connections"> Connections</Link>
+        <li><Link to="/connections"> Connections</Link></li> 
+        <li><Link to="/Request"> Request</Link></li> 
+
         <li><a>Settings</a></li>
         <li><a  onClick={logoutHander}>Logout</a></li>
       </ul>

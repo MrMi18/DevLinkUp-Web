@@ -8,7 +8,7 @@ const Connections = () => {
 const fetchConnection = async() =>{
   const connection = await axios.get(BASE_URL+"/user/connections",{withCredentials:true});
   setConnections(connection.data);
-  console.log(connections);
+  
 }
 useEffect(() =>{
   fetchConnection();
@@ -17,25 +17,12 @@ useEffect(() =>{
   return (
     <div>
       <h1 className="text-2xl font-semibold text-center my-4">Connections</h1>
-      <div className="overflow-x-auto">
-  <table className="table">
-    {/* head */}
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Job</th>
-        <th>Favorite Color</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
+      <div className="flex flex-col items-center gap-4 ">
       {
        connections &&  connections.map(connection =>{
         return(
 
-          <tr key={connection._id}>
-        <td>
-          <div className="flex items-center gap-3">
+          <div key={connection._id} className="flex items-center gap-3 w-2/4">
             <div className="avatar">
               <div className="mask mask-squircle h-12 w-12">
                 <img
@@ -47,30 +34,17 @@ useEffect(() =>{
               <div className="font-bold">{connection.firstName} {connection.lastName}</div>
               <div className="text-sm opacity-50">{connection.deignation}</div>
             </div>
-          </div>
-        </td>
-        <td>
-          Zemlak, Daniel and Leannon
-          <br />
-          <span className="badge badge-ghost badge-sm"></span>
-        </td>
-        <td>Purple</td>
-        
-      </tr>
+          </div>   
         )
             
         })
+        
       }
       
-    </tbody>
-    {/* foot */}
-    <tfoot>
-  
-    </tfoot>
-  </table>
+</div>
 </div>
       
-    </div>
+ 
   )
 }
 

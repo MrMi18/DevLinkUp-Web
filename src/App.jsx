@@ -8,6 +8,7 @@ import Signup from "./component/Signup"
 import Feed from "./component/Feed"
 import EditProfile from "./component/EditProfile"
 import Connections from "./component/Connections"
+import Request from "./component/Request"
 
 
 
@@ -26,6 +27,7 @@ function App() {
              <Route path="/profile/edit/:userId" element={<EditProfile/>}/>
              <Route path="/Signup" element={<Signup/>}/>
              <Route path ="/connections" element={<Connections/>}/>
+             <Route path ="/Request" element={<Request/>}/>
             
           </Route>
           
