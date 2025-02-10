@@ -1,6 +1,15 @@
-const Cards = (data) => {
-    
-  const { firstName, lastName, deignation,Age,skill,gender } = data;
+import axios from "axios";
+import { useEffect } from "react";
+import { BASE_URL } from "./utills/constent";
+
+const Cards = (props) => {
+   const{feedData} = props;
+  const{ firstName, lastName, deignation,Age,skill,gender }  = props?.feedData||props;
+
+const sendRequestHandler = async(status) =>{
+  const response = await axios.post(BASE_URL+"/request/send/"+status+"/"+feedData._id,{},{withCredentials:true});
+  
+}
   
   return (
     <div className="flex justify-center items-center">
@@ -30,8 +39,8 @@ const Cards = (data) => {
             }</div>
           <div className="card-actions justify-end">
             <div className="flex mx-auto gap-3 ">
-              <button className="btn btn-accent">Interest</button>
-              <button className="btn btn-error">Ignore</button>
+              <button onClick={() => sendRequestHandler("Interested")}  className="btn btn-accent">Interest</button>
+              <button onClick={() => sendRequestHandler("Ignored")} className="btn btn-error">Ignore</button>
             </div>
           </div>
         </div>

@@ -28,13 +28,17 @@ const Feed = () => {
 
   
   return (
-    <div>
+    <div> 
+         {console.log(feedData)}  
+         
+         <Cards key ={feedData?.data?._id} feedData={feedData[0]}/>
         {
-            feedData && feedData.map(data =>{
-                // console.log(data.firstName);
-                return <Cards key ={data?._id} firstName={data.firstName} lastName={data.lastName} deignation = {data.deignation}
-                Age={data?.Age} skill={data?.skill} gender={data?.gender} />
-            })
+            // feedData && feedData.map(data =>{
+            //     // console.log(data.firstName);
+            //     return 
+      
+           
+            // })
         }   
       
     </div>
