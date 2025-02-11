@@ -1,13 +1,21 @@
 import axios from "axios";
-import { useEffect } from "react";
 import { BASE_URL } from "./utills/constent";
+import { useDispatch } from "react-redux";
+import { removeUserFeed } from "./utills/feedSlice";
 
 const Cards = (props) => {
+  const dispatch = useDispatch();
    const{feedData} = props;
-  const{ firstName, lastName, deignation,Age,skill,gender }  = props?.feedData||props;
+  const{ _id,firstName, lastName, deignation,Age,skill,gender }  = props?.feedData||props;
 
-const sendRequestHandler = async(status) =>{
-  const response = await axios.post(BASE_URL+"/request/send/"+status+"/"+feedData._id,{},{withCredentials:true});
+const sendRequestHandler = async(status,userId) =>{
+  try{
+    await axios.post(BASE_URL+"/request/send/"+status+"/"+userId,{},{withCredentials:true});
+  dispatch(removeUserFeed(userId));
+  }catch(err){
+    console.error(err.message);
+  }
+  
   
 }
   
@@ -39,8 +47,8 @@ const sendRequestHandler = async(status) =>{
             }</div>
           <div className="card-actions justify-end">
             <div className="flex mx-auto gap-3 ">
-              <button onClick={() => sendRequestHandler("Interested")}  className="btn btn-accent">Interest</button>
-              <button onClick={() => sendRequestHandler("Ignored")} className="btn btn-error">Ignore</button>
+              <button onClick={() => sendRequestHandler("Interested",_id)}  className="btn btn-accent">Interest</button>
+              <button onClick={() => sendRequestHandler("Ignored",_id)} className="btn btn-error">Ignore</button>
             </div>
           </div>
         </div>

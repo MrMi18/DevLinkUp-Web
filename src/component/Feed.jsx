@@ -31,7 +31,7 @@ const Feed = () => {
     <div> 
          {console.log(feedData)}  
          
-         <Cards key ={feedData?.data?._id} feedData={feedData[0]}/>
+         <Cards key ={feedData?.data?._id} feedData={feedData[0]} />
         {
             // feedData && feedData.map(data =>{
             //     // console.log(data.firstName);
