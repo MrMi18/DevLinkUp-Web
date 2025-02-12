@@ -20,6 +20,7 @@ const signupHander= async () =>{
         emailID,password,firstName,lastName
     },{withCredentials:true})
 
+    console.log(res.data.data);
     dispatch(addUser(res.data.data));
     navigate("/profile");
 
