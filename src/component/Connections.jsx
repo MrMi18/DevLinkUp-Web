@@ -14,6 +14,8 @@ useEffect(() =>{
   fetchConnection();
 },[]);
 
+if(connections.length === 0) return <div>No Connection Found</div>
+
   return (
     <div>
       <h1 className="text-2xl font-semibold text-center my-4">Connections</h1>
@@ -22,7 +24,7 @@ useEffect(() =>{
        connections &&  connections.map(connection =>{
         return(
 
-          <div key={connection._id} className="flex items-center gap-3 w-2/4">
+          <div key={connection._id} className="flex items-center gap-3 w-2/4 bg-base-300 p-4 rounded-lg  hover:shadow-lg ">
             <div className="avatar">
               <div className="mask mask-squircle h-12 w-12">
                 <img

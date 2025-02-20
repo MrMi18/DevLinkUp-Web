@@ -32,13 +32,13 @@ const sendRequestHandler = async(status,userId) =>{
         </figure>
         <div className="card-body">
           <h2 className="card-title">{firstName + " " + lastName}</h2>
-          <p>{deignation}</p>
+          <p>{deignation && deignation}</p>
           <div className="flex w-[20%]">
-            <p>{gender}</p>
-            <p>{Age}</p>
+            <p>{gender && gender}</p>
+            <p>{Age&&Age}</p>
           </div>
           
-          <div  className="flex  flex-wrap">
+          <div  className="flex  flex-wrap gap-3">
             {
             skill &&
             skill.map((skill,index) =>{

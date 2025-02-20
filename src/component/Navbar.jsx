@@ -9,9 +9,13 @@ const Navbar = () => {
   const navigate = useNavigate();
   const userData = useSelector((store )=>store.user);
   const dispatch = useDispatch();
-  
+  // console.log(userData);
 
   const logoutHander = async () =>{
+    if(!userData) return ;
+   let res =  confirm("Please Confirm Logout");
+   
+    if(!res ) return ;
     try{
        await axios.post(BASE_URL+"/logout",{},{withCredentials: true});
     navigate("/login");
@@ -30,9 +34,12 @@ const Navbar = () => {
     <Link to={userData?"/feed":"/login"} className="btn btn-ghost text-xl">DevLinkUp</Link>
   </div>
   <div className="flex-none gap-2">
-    <div className="form-control">
+    {/* <div className="form-control">
       <input type="text" placeholder="Search" className="input input-bordered w-24 md:w-auto" />
-    </div>
+    </div> */}
+    <a onClick={() =>{
+      navigate("/profile")
+    }} className="mr-3 cursor-pointer">{userData?.lastName}</a>
     <div className="dropdown dropdown-end">
       <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
         <div className="w-10 rounded-full">

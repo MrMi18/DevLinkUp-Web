@@ -30,8 +30,8 @@ const Request = () => {
     useEffect(() =>{
         fetchRequest();
     },[])
-    
-
+   
+if(requestList.length===0) return <div>no request found</div>
   return (
     <div >
     <h1 className="text-2xl font-semibold text-center my-4">Requests</h1>

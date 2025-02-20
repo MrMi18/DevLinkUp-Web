@@ -31,7 +31,7 @@ const Feed = () => {
     if (!feedData || feedData.length === 0) {
         return <div>No feed data available.</div>; // Handle empty state
     }
-    console.log(feedData && feedData[0]);
+    // console.log(feedData && feedData[0]);
   
   return (
     <div> 

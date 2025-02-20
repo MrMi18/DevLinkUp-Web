@@ -92,16 +92,27 @@ const Profile = () => {
                 className="input input-bordered w-full max-w-xs"
               />
             </label>
-            <div  className="flex  flex-wrap">
+
+          {profileData?.skill.length>0 && <div className="text-left mt-2">
+            <label className="ml-1">Skills
+            <div  className="flex  flex-wrap gap-2">
             {
             profileData?.skill &&
             profileData?.skill.map((skill,index) =>{
               
                  return(  <button key={index} className="btn" >  {skill} </button>)
               })
-            }</div>
-
-            <p className="text-red-600 text-sm "> </p>
+             }</div>
+             </label>
+            </div>}
+            
+            <div className="w-[95%] text-left ml-1">
+            <label className="">Bio
+            <textarea className="textarea textarea-bordered w-full my-3" placeholder="Bio"></textarea>
+            </label>
+            </div>
+            
+            {/* <p className="text-red-600 text-sm "> </p> */}
             <div className="card-actions justify-end mx-auto">
               <button onClick={editProfileHandler } className="btn btn-primary text-lg">Edit</button>
             </div>

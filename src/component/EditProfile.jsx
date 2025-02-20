@@ -31,6 +31,7 @@ const EditProfile = () => {
      }
     
      const submitHandler = async() =>{
+      console.log("upadating profile")
         try{ 
             await axios.patch(BASE_URL+"/profile/edit/"+userId,{
                 firstName,
