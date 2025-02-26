@@ -14,7 +14,7 @@ useEffect(() =>{
   fetchConnection();
 },[]);
 
-if(connections.length === 0) return <div>No Connection Found</div>
+if(connections && connections.length === 0) return <div>No Connection Found</div>
 
   return (
     <div>
