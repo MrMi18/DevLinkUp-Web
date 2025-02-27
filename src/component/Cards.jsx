@@ -2,15 +2,20 @@ import axios from "axios";
 import { BASE_URL } from "./utills/constent";
 import { useDispatch } from "react-redux";
 import { removeUserFeed } from "./utills/feedSlice";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const Cards = (props) => {
+  const[userData,setUserData] = useState(props?.feedData);
   // console.log(props);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { feedData } = props;
   const { _id, firstName, lastName, designation, Age, skill, gender } =
     props?.feedData || props;
 
-  const sendRequestHandler = async (status, userId) => {
+  const sendRequestHandler = async (status, userId,e) => {
+   
     try {
       await axios.post(
         BASE_URL + "/request/send/" + status + "/" + userId,
@@ -22,9 +27,10 @@ const Cards = (props) => {
       console.error(err.message);
     }
   };
+  console.log(feedData)
 
   return (
-    <div className="flex justify-center items-center ">
+    <div className="flex justify-center items-center mb-10 "  onClick={() => navigate("/UserProfile",{state:{userData:feedData}})}>
       <div className="card card-compact bg-base-300 w-80 shadow-xl mt-2">
         <div className="avatar mx-auto mt-10">
           <div className="ring-primary ring-offset-base-100 w-24 rounded-full ring ring-offset-2">
@@ -58,13 +64,14 @@ const Cards = (props) => {
           <div className="card-actions justify-end">
             <div className="flex mx-auto gap-3 ">
               <button
-                onClick={() => sendRequestHandler("Interested", _id)}
+                onClick={(e) => sendRequestHandler("Interested", _id,e)}
                 className="btn btn-accent btn-sm"
               >
                 Interest
               </button>
               <button
-                onClick={() => sendRequestHandler("Ignored", _id)}
+              
+                onClick={(e) => sendRequestHandler("Ignored", _id,e)}
                 className="btn btn-error btn-sm"
               >
                 Ignore
