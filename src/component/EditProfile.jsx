@@ -178,9 +178,9 @@ const EditProfile = () => {
         </div>
       </div>
     </div> 
-    <div className="">
+    {/* <div className="">
         <Cards firstName ={firstName} lastName={lastName} Age = {age} deignation= {deignation} gender={gender}  skill={skills}/>
-    </div>
+    </div> */}
     </div>
   )
 }

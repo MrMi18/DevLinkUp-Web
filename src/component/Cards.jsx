@@ -15,7 +15,7 @@ const Cards = (props) => {
     props?.feedData || props;
 
   const sendRequestHandler = async (status, userId,e) => {
-   
+    e.stopPropagation()
     try {
       await axios.post(
         BASE_URL + "/request/send/" + status + "/" + userId,
